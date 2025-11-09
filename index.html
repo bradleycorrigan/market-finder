@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>London Market Finder</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        body {
+            padding: 2rem;
+        }
+        .market-card {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid var(--pico-muted-border-color);
+            border-radius: 8px;
+        }
+        .vendor-list {
+            margin-top: 1rem;
+        }
+        .vendor-item {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: var(--pico-card-background-color);
+            border-radius: 4px;
+        }
+        .vendor-item h4 {
+            margin-bottom: 0.5rem;
+        }
+        .products {
+            color: var(--pico-muted-color);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <h1>London Market Finder 📍</h1>
+        <p>London's markets are a part of what makes it great, but it can be hard to find the best vendors and stalls at each market, so let's help you explore better.</p>
+        
+        <div id="markets-container">
+            <p aria-busy="true">Loading markets...</p>
+        </div>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

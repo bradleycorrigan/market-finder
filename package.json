@@ -1,0 +1,25 @@
+{
+  "name": "market-finder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bradleycorrigan/market-finder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bradleycorrigan/market-finder/issues"
+  },
+  "homepage": "https://github.com/bradleycorrigan/market-finder#readme",
+  "devDependencies": {
+    "vite": "^7.2.2"
+  }
+}
