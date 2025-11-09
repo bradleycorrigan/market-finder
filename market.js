@@ -108,7 +108,7 @@ async function loadMarket() {
         
         // Create the vendors section heading
         vendorsContainer.innerHTML = `
-            <h2>Vendors (${vendors.length})</h2>
+            <h2>Our Favourite Vendors (${vendors.length})</h2>
             <div class="vendor-grid"></div>
         `;
         
