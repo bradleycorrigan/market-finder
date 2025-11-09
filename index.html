@@ -5,33 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>London Market Finder</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <style>
-        body {
-            padding: 2rem;
-        }
-        .market-card {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            border: 1px solid var(--pico-muted-border-color);
-            border-radius: 8px;
-        }
-        .vendor-list {
-            margin-top: 1rem;
-        }
-        .vendor-item {
-            padding: 1rem;
-            margin: 0.5rem 0;
-            background: var(--pico-card-background-color);
-            border-radius: 4px;
-        }
-        .vendor-item h4 {
-            margin-bottom: 0.5rem;
-        }
-        .products {
-            color: var(--pico-muted-color);
-            font-size: 0.9rem;
-        }
-    </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
+<style>
+    body {
+        padding: 2rem;
+    }
+    .market-card {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border: 1px solid var(--pico-muted-border-color);
+        border-radius: 8px;
+    }
+    .market-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+    .social-links a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        color: var(--pico-muted-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+    .social-links a:hover {
+        color: var(--pico-primary);
+    }
+    .social-links svg {
+        width: 16px;
+        height: 16px;
+    }
+</style>
 </head>
 <body>
     <main class="container">

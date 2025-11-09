@@ -12,6 +12,36 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 const urlParams = new URLSearchParams(window.location.search);
 const vendorId = urlParams.get('id');
 
+// Helper function to create social links HTML
+function createSocialLinks(website, instagram) {
+    const links = [];
+    
+    if (website) {
+        links.push(`
+            <a href="${website}" target="_blank" rel="noopener">
+                <i data-lucide="external-link"></i>
+                Website
+            </a>
+        `);
+    }
+    
+    if (instagram) {
+        const instaHandle = instagram.replace('@', '');
+        links.push(`
+            <a href="https://instagram.com/${instaHandle}" target="_blank" rel="noopener">
+                <i data-lucide="instagram"></i>
+                @${instaHandle}
+            </a>
+        `);
+    }
+    
+    if (links.length > 0) {
+        return `<div class="social-links">${links.join('')}</div>`;
+    }
+    
+    return '';
+}
+
 // Load vendor details
 async function loadVendor() {
     const container = document.getElementById('vendor-container');
@@ -57,8 +87,11 @@ async function loadVendor() {
         container.innerHTML = `
             ${backLink}
             
+            ${vendor.image_url ? `<img src="${vendor.image_url}" alt="${vendor.name}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">` : ''}
+            
             <div class="vendor-header">
                 <h1>${vendor.name}</h1>
+                ${createSocialLinks(vendor.website, vendor.instagram)}
             </div>
             
             <div class="vendor-details">
@@ -86,6 +119,9 @@ async function loadVendor() {
         
         // Update page title
         document.title = `${vendor.name} - London Market Finder`;
+        
+        // Initialize Lucide icons
+        lucide.createIcons();
         
     } catch (error) {
         console.error('Error loading vendor:', error);

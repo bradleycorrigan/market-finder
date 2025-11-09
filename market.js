@@ -9,29 +9,62 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Get market ID from URL
+// Example: market.html?id=1 → marketId = '1'
 const urlParams = new URLSearchParams(window.location.search);
 const marketId = urlParams.get('id');
+
+// Helper function to create social links HTML
+function createSocialLinks(website, instagram) {
+    const links = [];
+    
+    if (website) {
+        links.push(`
+            <a href="${website}" target="_blank" rel="noopener">
+                <i data-lucide="external-link"></i>
+                Website
+            </a>
+        `);
+    }
+    
+    if (instagram) {
+        const instaHandle = instagram.replace('@', '');
+        links.push(`
+            <a href="https://instagram.com/${instaHandle}" target="_blank" rel="noopener">
+                <i data-lucide="instagram"></i>
+                @${instaHandle}
+            </a>
+        `);
+    }
+    
+    if (links.length > 0) {
+        return `<div class="social-links">${links.join('')}</div>`;
+    }
+    
+    return '';
+}
 
 // Load market details and vendors
 async function loadMarket() {
     const marketContainer = document.getElementById('market-container');
     const vendorsContainer = document.getElementById('vendors-container');
     
+    // If no ID in URL, show error
     if (!marketId) {
         marketContainer.innerHTML = '<p>No market ID provided.</p>';
         return;
     }
     
     try {
-        // Fetch market details
+        // Fetch this specific market from database
         const { data: market, error: marketError } = await supabase
             .from('markets')
             .select('*')
-            .eq('id', marketId)
-            .single();
+            .eq('id', marketId)  // Only get market with this ID
+            .single();  // We expect exactly one result
         
         if (marketError) throw marketError;
         
+        // If market doesn't exist
         if (!market) {
             marketContainer.innerHTML = '<p>Market not found.</p>';
             return;
@@ -40,14 +73,16 @@ async function loadMarket() {
         // Display market details
         marketContainer.innerHTML = `
             <div class="market-header">
+                ${market.image_url ? `<img src="${market.image_url}" alt="${market.name}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">` : ''}
                 <h1>${market.name}</h1>
                 <p><strong>${market.address}</strong></p>
                 <p>${market.days_open || 'Hours not listed'}</p>
                 <p>${market.description}</p>
+                ${createSocialLinks(market.website, market.instagram)}
             </div>
         `;
         
-        // Update page title
+        // Update the browser tab title
         document.title = `${market.name} - London Market Finder`;
         
         // Fetch vendors for this market through junction table
@@ -60,6 +95,9 @@ async function loadMarket() {
         
         if (vendorsError) throw vendorsError;
         
+        // Extract just the vendor objects from the results
+        // vendorMarkets is an array like [{vendor: {...}}, {vendor: {...}}]
+        // We want just [{...}, {...}]
         const vendors = vendorMarkets.map(vm => vm.vendor);
         
         // Display vendors
@@ -68,25 +106,33 @@ async function loadMarket() {
             return;
         }
         
+        // Create the vendors section heading
         vendorsContainer.innerHTML = `
             <h2>Vendors (${vendors.length})</h2>
             <div class="vendor-grid"></div>
         `;
         
+        // Get the grid container we just created
         const vendorGrid = vendorsContainer.querySelector('.vendor-grid');
         
+        // Loop through each vendor and create a card
         vendors.forEach(vendor => {
             const vendorCard = document.createElement('div');
             vendorCard.className = 'vendor-card';
             vendorCard.innerHTML = `
+                ${vendor.image_url ? `<img src="${vendor.image_url}" alt="${vendor.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 0.5rem;">` : ''}
                 <a href="vendor.html?id=${vendor.id}">
                     <h3>${vendor.name}</h3>
                     <p>${vendor.description || 'No description available'}</p>
                     <p class="products">${vendor.products || 'Products not listed'}</p>
                 </a>
+                ${createSocialLinks(vendor.website, vendor.instagram)}
             `;
             vendorGrid.appendChild(vendorCard);
         });
+        
+        // Initialize Lucide icons
+        lucide.createIcons();
         
     } catch (error) {
         console.error('Error loading market:', error);
