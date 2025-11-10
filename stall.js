@@ -8,9 +8,9 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 // Initialize Supabase
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Get vendor ID from URL
+// Get stall ID from URL
 const urlParams = new URLSearchParams(window.location.search);
-const vendorId = urlParams.get('id');
+const stallId = urlParams.get('id');
 
 // Helper function to create social links HTML
 function createSocialLinks(website, instagram) {
@@ -42,64 +42,64 @@ function createSocialLinks(website, instagram) {
     return '';
 }
 
-// Load vendor details
-async function loadVendor() {
-    const container = document.getElementById('vendor-container');
+// Load stall details
+async function loadStall() {
+    const container = document.getElementById('stall-container');
     
-    if (!vendorId) {
-        container.innerHTML = '<p>No vendor ID provided.</p>';
+    if (!stallId) {
+        container.innerHTML = '<p>No stall ID provided.</p>';
         return;
     }
     
     try {
-        // Fetch vendor details
-        const { data: vendor, error: vendorError } = await supabase
-            .from('vendors')
+        // Fetch stall details
+        const { data: stall, error: stallError } = await supabase
+            .from('stalls')
             .select('*')
-            .eq('id', vendorId)
+            .eq('id', stallId)
             .single();
         
-        if (vendorError) throw vendorError;
+        if (stallError) throw stallError;
         
-        if (!vendor) {
-            container.innerHTML = '<p>Vendor not found.</p>';
+        if (!stall) {
+            container.innerHTML = '<p>Stall not found.</p>';
             return;
         }
         
-        // Fetch all markets this vendor operates at
-        const { data: vendorMarkets, error: marketsError } = await supabase
-            .from('vendor_markets')
+        // Fetch all markets this stall operates at
+        const { data: stallMarkets, error: marketsError } = await supabase
+            .from('stall_markets')
             .select(`
                 market:markets(id, name, address, days_open)
             `)
-            .eq('vendor_id', vendorId);
+            .eq('stall_id', stallId);
         
         if (marketsError) throw marketsError;
         
-        const markets = vendorMarkets.map(vm => vm.market);
+        const markets = stallMarkets.map(vm => vm.market);
         
         // Build back link (go to first market if multiple)
         const backLink = markets.length > 0 
             ? `<a href="market.html?id=${markets[0].id}" class="back-link">← Back to ${markets[0].name}</a>`
             : `<a href="index.html" class="back-link">← Back to all markets</a>`;
         
-        // Display vendor details
+        // Display stall details
         container.innerHTML = `
             ${backLink}
             
-            ${vendor.image_url ? `<img src="${vendor.image_url}" alt="${vendor.name}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">` : ''}
+            ${stall.image_url ? `<img src="${stall.image_url}" alt="${stall.name}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">` : ''}
             
-            <div class="vendor-header">
-                <h1>${vendor.name}</h1>
-                ${createSocialLinks(vendor.website, vendor.instagram)}
+            <div class="stall-header">
+                <h1>${stall.name}</h1>
+                ${createSocialLinks(stall.website, stall.instagram)}
             </div>
             
-            <div class="vendor-details">
+            <div class="stall-details">
                 <h2>About</h2>
-                <p>${vendor.description || 'No description available'}</p>
+                <p>${stall.description || 'No description available'}</p>
                 
                 <h3>Products</h3>
-                <p class="products">${vendor.products || 'Products not listed'}</p>
+                <p class="products">${stall.products || 'Products not listed'}</p>
             </div>
             
             <div class="market-info">
@@ -118,16 +118,16 @@ async function loadVendor() {
         `;
         
         // Update page title
-        document.title = `${vendor.name} - London Market Finder`;
+        document.title = `${stall.name} - London Market Finder`;
         
         // Initialize Lucide icons
         lucide.createIcons();
         
     } catch (error) {
-        console.error('Error loading vendor:', error);
-        container.innerHTML = '<p>Error loading vendor. Check console for details.</p>';
+        console.error('Error loading stall:', error);
+        container.innerHTML = '<p>Error loading stall. Check console for details.</p>';
     }
 }
 
-// Load vendor when page loads
-loadVendor();
+// Load stall when page loads
+loadStall();

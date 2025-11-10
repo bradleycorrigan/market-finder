@@ -41,7 +41,7 @@ function createSocialLinks(website, instagram) {
     return '';
 }
 
-// Load markets and their vendors
+// Load markets and their stalls
 async function loadMarkets() {
     const container = document.getElementById('markets-container');
     
@@ -66,9 +66,9 @@ async function loadMarkets() {
         
         // Loop through each market and create a card
         for (const market of markets) {
-            // Get vendor count for this market using junction table
+            // Get stall count for this market using junction table
             const { count } = await supabase
-                .from('vendor_markets')
+                .from('stall_markets')
                 .select('*', { count: 'exact', head: true })
                 .eq('market_id', market.id);
             
@@ -85,7 +85,7 @@ async function loadMarkets() {
                 <p>${market.days_open || 'Hours not listed'}</p>
                 <p>${market.description}</p>
                 ${createSocialLinks(market.website, market.instagram)}
-                <p><small>${count || 0} vendors</small></p>
+                <p><small>${count || 0} stalls</small></p>
             `;
             
             // Add the card to the page

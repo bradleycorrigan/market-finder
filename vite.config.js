@@ -7,7 +7,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         market: resolve(__dirname, 'market.html'),
-        vendor: resolve(__dirname, 'vendor.html')
+        stall: resolve(__dirname, 'stall.html')
       }
     }
   }

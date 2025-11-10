@@ -43,10 +43,10 @@ function createSocialLinks(website, instagram) {
     return '';
 }
 
-// Load market details and vendors
+// Load market details and stalls
 async function loadMarket() {
     const marketContainer = document.getElementById('market-container');
-    const vendorsContainer = document.getElementById('vendors-container');
+    const stallsContainer = document.getElementById('stalls-container');
     
     // If no ID in URL, show error
     if (!marketId) {
@@ -85,50 +85,50 @@ async function loadMarket() {
         // Update the browser tab title
         document.title = `${market.name} - London Market Finder`;
         
-        // Fetch vendors for this market through junction table
-        const { data: vendorMarkets, error: vendorsError } = await supabase
-            .from('vendor_markets')
+        // Fetch stalls for this market through junction table
+        const { data: stallMarkets, error: stallsError } = await supabase
+            .from('stall_markets')
             .select(`
-                vendor:vendors(*)
+                stall:stalls(*)
             `)
             .eq('market_id', marketId);
         
-        if (vendorsError) throw vendorsError;
+        if (stallsError) throw stallsError;
         
-        // Extract just the vendor objects from the results
-        // vendorMarkets is an array like [{vendor: {...}}, {vendor: {...}}]
+        // Extract just the stall objects from the results
+        // stallMarkets is an array like [{stall: {...}}, {stall: {...}}]
         // We want just [{...}, {...}]
-        const vendors = vendorMarkets.map(vm => vm.vendor);
+        const stalls = stallMarkets.map(sm => sm.stall);
         
-        // Display vendors
-        if (vendors.length === 0) {
-            vendorsContainer.innerHTML = '<p>No vendors listed for this market yet.</p>';
+        // Display stalls
+        if (stalls.length === 0) {
+            stallsContainer.innerHTML = '<p>No stalls listed for this market yet.</p>';
             return;
         }
         
-        // Create the vendors section heading
-        vendorsContainer.innerHTML = `
-            <h2>Our Favourite Vendors (${vendors.length})</h2>
-            <div class="vendor-grid"></div>
+        // Create the stalls section heading
+        stallsContainer.innerHTML = `
+            <h2>Our Favourite Stalls (${stalls.length})</h2>
+            <div class="stall-grid"></div>
         `;
         
         // Get the grid container we just created
-        const vendorGrid = vendorsContainer.querySelector('.vendor-grid');
+        const stallGrid = stallsContainer.querySelector('.stall-grid');
         
-        // Loop through each vendor and create a card
-        vendors.forEach(vendor => {
-            const vendorCard = document.createElement('div');
-            vendorCard.className = 'vendor-card';
-            vendorCard.innerHTML = `
-                ${vendor.image_url ? `<img src="${vendor.image_url}" alt="${vendor.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 0.5rem;">` : ''}
-                <a href="vendor.html?id=${vendor.id}">
-                    <h3>${vendor.name}</h3>
-                    <p>${vendor.description || 'No description available'}</p>
-                    <p class="products">${vendor.products || 'Products not listed'}</p>
+        // Loop through each stall and create a card
+        stalls.forEach(stall => {
+            const stallCard = document.createElement('div');
+            stallCard.className = 'stall-card';
+            stallCard.innerHTML = `
+                ${stall.image_url ? `<img src="${stall.image_url}" alt="${stall.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 0.5rem;">` : ''}
+                <a href="stall.html?id=${stall.id}">
+                    <h3>${stall.name}</h3>
+                    <p>${stall.description || 'No description available'}</p>
+                    <p class="products">${stall.products || 'Products not listed'}</p>
                 </a>
-                ${createSocialLinks(vendor.website, vendor.instagram)}
+                ${createSocialLinks(stall.website, stall.instagram)}
             `;
-            vendorGrid.appendChild(vendorCard);
+            stallGrid.appendChild(stallCard);
         });
         
         // Initialize Lucide icons
