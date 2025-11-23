@@ -1,0 +1,460 @@
+/* Market Finder Custom Theme */
+/* Inspired by farmers markets, organic produce, East London vibes */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+    color-scheme: light;
+    /* Light mode - Solarized Light inspired with market colors */
+    --market-cream: #fdf6e3;
+    --market-warm-white: #eee8d5;
+    --market-green: #2d7a4f;
+    --market-sage: #52796f;
+    --market-orange: #e97f34;
+    --market-terracotta: #c55a33;
+    --market-brown: #5d4e37;
+    --market-charcoal: #2c3531;
+    --market-text: #1a3d2a;
+    --market-text-muted: #2d5940;
+    
+    /* Override Pico variables */
+    --pico-background-color: var(--market-cream);
+    --pico-color: var(--market-text);
+    --pico-primary: var(--market-green);
+    --pico-primary-hover: var(--market-sage);
+    --pico-primary-focus: rgba(45, 122, 79, 0.125);
+    --pico-card-background-color: var(--market-warm-white);
+    --pico-muted-color: var(--market-text-muted);
+    --pico-muted-border-color: rgba(82, 121, 111, 0.2);
+    --pico-secondary: var(--market-orange);
+    --pico-secondary-hover: var(--market-terracotta);
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+    /* Dark mode - Kimbie Dark inspired with warm browns and oranges */
+    --market-dark-bg: #221a0f;
+    --market-dark-surface: #362712;
+    --market-dark-orange: #f79a32;
+    --market-dark-peach: #dc9656;
+    --market-dark-green: #889b4a;
+    --market-dark-sage: #6f8f72;
+    --market-dark-brown: #4b3621;
+    --market-dark-text: #f5e6d3;
+    --market-dark-muted: #d4b896;
+    
+    --pico-background-color: var(--market-dark-bg);
+    --pico-color: var(--market-dark-text);
+    --pico-primary: var(--market-dark-orange);
+    --pico-primary-hover: var(--market-dark-peach);
+    --pico-primary-focus: rgba(247, 154, 50, 0.15);
+    --pico-card-background-color: var(--market-dark-surface);
+    --pico-muted-color: var(--market-dark-muted);
+    --pico-muted-border-color: rgba(165, 122, 76, 0.2);
+    --pico-secondary: var(--market-dark-sage);
+    --pico-secondary-hover: var(--market-dark-green);
+}
+
+/* Custom styling */
+body {
+    padding: 2rem;
+}
+
+h1, h2, h3 {
+    color: var(--market-green);
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3 {
+    color: var(--market-dark-orange);
+}
+
+/* Links with warm accent */
+a {
+    color: var(--market-green);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--market-orange);
+}
+
+[data-theme="dark"] a {
+    color: var(--market-dark-orange);
+}
+
+[data-theme="dark"] a:hover {
+    color: var(--market-dark-peach);
+}
+
+/* Buttons with organic feel */
+button, [role="button"] {
+    background-color: var(--market-green);
+    border-color: var(--market-green);
+    font-weight: 600;
+    color: white;
+}
+
+button:hover, [role="button"]:hover {
+    background-color: var(--market-sage);
+    border-color: var(--market-sage);
+    color: var(--market-orange);
+}
+
+[data-theme="dark"] button,
+[data-theme="dark"] [role="button"] {
+    background-color: var(--market-dark-orange);
+    border-color: var(--market-dark-orange);
+    color: var(--market-dark-bg);
+}
+
+[data-theme="dark"] button:hover,
+[data-theme="dark"] [role="button"]:hover {
+    background-color: var(--market-dark-peach);
+    border-color: var(--market-dark-peach);
+    color: var(--market-dark-sage);
+}
+
+/* Cards with subtle texture feel */
+.market-card {
+    background-color: var(--pico-card-background-color);
+    border: 2px solid var(--pico-muted-border-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(82, 121, 111, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.market-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(82, 121, 111, 0.15);
+}
+
+[data-theme="dark"] .market-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .market-card:hover {
+    box-shadow: 0 4px 12px rgba(247, 154, 50, 0.2);
+}
+
+/* Intro text (submit page) - no background */
+.intro {
+    margin-bottom: 2rem;
+}
+
+/* Form inputs with warm styling */
+input:not([type="checkbox"]):not([type="radio"]), 
+textarea, 
+select {
+    border-color: var(--pico-muted-border-color);
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus, 
+textarea:focus, 
+select:focus {
+    border-color: var(--market-green);
+    box-shadow: 0 0 0 3px var(--pico-primary-focus);
+}
+
+[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+    border-color: var(--market-dark-orange);
+}
+
+/* Required field indicator */
+.required {
+    color: var(--market-terracotta);
+}
+
+[data-theme="dark"] .required {
+    color: var(--market-dark-peach);
+}
+
+/* Success/Error messages with organic colors */
+.message.success {
+    background-color: rgba(136, 155, 74, 0.15);
+    color: var(--market-green);
+    border: 2px solid var(--market-sage);
+}
+
+.message.error {
+    background-color: rgba(197, 90, 51, 0.15);
+    color: var(--market-terracotta);
+    border: 2px solid var(--market-terracotta);
+}
+
+[data-theme="dark"] .message.success {
+    background-color: rgba(136, 155, 74, 0.2);
+    color: var(--market-dark-sage);
+    border-color: var(--market-dark-green);
+}
+
+[data-theme="dark"] .message.error {
+    background-color: rgba(220, 150, 86, 0.2);
+    color: var(--market-dark-peach);
+    border-color: var(--market-dark-peach);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    background-color: var(--pico-card-background-color);
+    border: 2px solid var(--pico-muted-border-color);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 1000;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    border-color: var(--market-green);
+}
+
+[data-theme="dark"] .theme-toggle {
+    background-color: var(--market-dark-brown);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    border-color: var(--market-dark-orange);
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    color: var(--market-text);
+}
+
+[data-theme="dark"] .theme-toggle svg {
+    color: var(--market-dark-text);
+}
+
+/* Page-specific components */
+
+/* Header with submit button */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.page-header a[role="button"] {
+    margin: 0;
+}
+
+/* Back link */
+.back-link {
+    margin-bottom: 2rem;
+    display: inline-block;
+}
+
+/* Market cards (index page) */
+.market-card {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+}
+
+.market-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* Stall grid (market page) */
+.stall-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.stall-card {
+    padding: 1.5rem;
+    border: 1px solid var(--pico-muted-border-color);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+}
+
+.stall-card:hover {
+    border-color: var(--pico-primary);
+}
+
+.stall-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Stall/Market headers */
+.market-header,
+.stall-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+/* Stall details */
+.stall-details {
+    margin-bottom: 2rem;
+}
+
+.stall-details h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.stall-details h2:first-of-type {
+    margin-top: 0;
+}
+
+.market-info {
+    padding: 1rem;
+    background: var(--pico-card-background-color);
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.products {
+    color: var(--pico-muted-color);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Long description (stall page) */
+.long-description {
+    line-height: 1.8;
+    color: var(--pico-color);
+    max-width: 800px;
+    margin-top: 1rem;
+}
+
+.long-description p {
+    margin-bottom: 1rem;
+}
+
+.long-description ul,
+.long-description ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.long-description li {
+    margin-bottom: 0.5rem;
+}
+
+.long-description strong {
+    font-weight: 600;
+}
+
+/* Social links (shared) */
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--pico-muted-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.social-links a:hover {
+    color: var(--pico-primary);
+}
+
+.social-links svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Submit form */
+.submit-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--pico-muted-color);
+    font-size: 0.875rem;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: var(--market-green);
+    border-color: var(--market-green);
+}
+
+.submit-btn:hover {
+    background-color: var(--market-sage);
+    border-color: var(--market-sage);
+    color: var(--market-orange);
+}
+
+[data-theme="dark"] .submit-btn {
+    background-color: var(--market-dark-orange);
+    border-color: var(--market-dark-orange);
+    color: var(--market-dark-bg);
+}
+
+[data-theme="dark"] .submit-btn:hover {
+    background-color: var(--market-dark-peach);
+    border-color: var(--market-dark-peach);
+    color: var(--market-dark-sage);
+}
+
+.message strong {
+    font-family: monospace;
+    background-color: rgba(0,0,0,0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}
+

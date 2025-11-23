@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a Stall - London Market Finder</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="container">
+        <div class="submit-container">
+            <a href="index.html" class="back-link">← Back to Markets</a>
+            
+            <h1>Submit Your Favorite Stall</h1>
+            
+            <div class="intro">
+                <p>Know a great stall that's not listed? We'd love to hear about it!</p>
+                <p>Share your favorite market stall with us and help others discover amazing vendors. We'll review your submission and add it to our guide.</p>
+            </div>
+
+            <div id="message-container" role="alert" aria-live="polite"></div>
+
+            <form id="submit-form">
+                <div class="form-group">
+                    <label for="stall_name">Stall Name <span class="required">*</span></label>
+                    <input type="text" id="stall_name" name="stall_name" required maxlength="200">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Short Description <span class="required">*</span></label>
+                    <textarea id="description" name="description" required maxlength="500"></textarea>
+                    <small><span id="char-count">0</span>/500 characters</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="products">What do they sell?</label>
+                    <input type="text" id="products" name="products" maxlength="200">
+                    <small>e.g., "Fresh pasta, sauces, olive oil"</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="markets">Which market(s)?</label>
+                    <textarea id="markets" name="markets" maxlength="300"></textarea>
+                    <small>e.g., "Borough Market on Saturdays, Broadway Market on Sundays"</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="website">Website</label>
+                    <input type="text" id="website" name="website" placeholder="example.com" maxlength="300">
+                </div>
+
+                <div class="form-group">
+                    <label for="instagram">Instagram Handle</label>
+                    <input type="text" id="instagram" name="instagram" placeholder="@stallname" maxlength="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="is_stall_owner">Are you the stall owner? <span class="required">*</span></label>
+                    <select id="is_stall_owner" name="is_stall_owner" required>
+                        <option value="">Please select...</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="submitter_email">Your Email (optional)</label>
+                    <input type="email" id="submitter_email" name="submitter_email" maxlength="200">
+                    <small>In case we have questions about your submission</small>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Stall</button>
+            </form>
+        </div>
+    </main>
+
+    <script type="module" src="/submit.js"></script>
+    <script src="/theme-toggle.js"></script>
+</body>
+</html>

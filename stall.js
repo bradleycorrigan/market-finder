@@ -98,6 +98,11 @@ async function loadStall() {
                 <h2>About</h2>
                 <p>${stall.description || 'No description available'}</p>
                 
+                ${stall.long_description ? `
+                    <h2>What We Think</h2>
+                    <div class="long-description">${stall.long_description}</div>
+                ` : ''}
+                
                 <h3>Products</h3>
                 <p class="products">${stall.products || 'Products not listed'}</p>
             </div>
