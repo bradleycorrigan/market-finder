@@ -61,7 +61,7 @@ body {
     padding: 2rem;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     color: var(--market-green);
     font-family: 'DM Serif Display', serif;
     font-weight: 400;
@@ -69,7 +69,8 @@ h1, h2, h3 {
 
 [data-theme="dark"] h1,
 [data-theme="dark"] h2,
-[data-theme="dark"] h3 {
+[data-theme="dark"] h3,
+[data-theme="dark"] h4 {
     color: var(--market-dark-orange);
 }
 
